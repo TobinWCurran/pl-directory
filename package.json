@@ -1,0 +1,9 @@
+{
+  "name": "pl-directory",
+  "version": "1.0.0",
+  "description": "A People Directory application.",
+  "main": "index.js",
+  "repository": "https://github.com/TobinWCurran/pl-directory",
+  "author": "Tobin W Curran <2274204+TobinWCurran@users.noreply.github.com>",
+  "license": "MIT"
+}
