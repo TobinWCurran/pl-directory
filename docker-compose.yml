@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  api:
+    stdin_open: true # without this node doesn't start
+    build:
+      context: ./api
+    image: pld-api
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+    ports:
+      - '3001:3001'
+    depends_on:
+      - mongodb
+    volumes:
+      - ./api:/usr/src/pld-api
+      - /usr/src/pld-api/node_modules
+    networks:
+      - node-network
+
+  client:
+    stdin_open: true # without this node doesn't start
+    build:
+      context: ./client
+    image: pld-client
+    # environment:
+    #   - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/usr/src/pld-client
+      - /usr/src/pld-client/node_modules
+    networks:
+      - node-network
+    # command: yarn start
+
+  mongodb:
+    image: mongo:4.2.1-bionic
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - node-network
+
+volumes:
+  dbdata:
+
+networks:
+  node-network:
+    driver: bridge
